@@ -1,14 +1,26 @@
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-import CartItem from '../components/CartItem';
-import Cart from '../components/Cart';
 
 function Shop() {
     const [cartItems, setCartItems] = useState([]);
 
     const addToCart = (item) => {
-        setCartItems([...cartItems, item]);
+        fetch('http://localhost:3001/cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(item),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setCartItems([...cartItems, data]);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     };
+
 
     return (
         <div>
@@ -20,16 +32,15 @@ function Shop() {
                     <p>Item 1</p>
                     <p>Price: $X</p>
                     <button onClick={() => addToCart({ name: 'Item 1', price: 999 })}>Add to Cart</button>
-                    <p>Inventory: X</p>
                 </div>
                 <div>
                     <p>Item 2</p>
                     <p>Price: $X</p>
                     <button onClick={() => addToCart({ name: 'Item 2', price: 999 })}>Add to Cart</button>
-                    <p>Inventory: X</p>
                 </div>
                 {/* Add more item entries */}
             </div>
+            <p>Cart Inventory: X</p>
             <Link to="/cart">View Cart</Link>
         </div>
     );

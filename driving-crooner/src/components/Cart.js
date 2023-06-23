@@ -33,6 +33,7 @@ function Cart({ cartItems, removeItem }) {
     return (
         <div>
             <Link to="/">Home</Link>
+            <Link to="/shop">The Shop</Link>
             <h1>The Driving Crooner</h1>
             <h2>Shopping Cart</h2>
             {items.map((item, index) => (

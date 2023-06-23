@@ -9,7 +9,11 @@ function Shop() {
         fetch('http://localhost:3001/cart')
             .then((response) => response.json())
             .then((data) => {
-                setItems(data.cartItems);
+                const filteredItems = data.cartItems.filter((item) => item.id === 1 || item.id === 2);
+                const uniqueItems = Array.from(new Set(filteredItems.map((item) => item.id))).map((id) => {
+                    return filteredItems.find((item) => item.id === id);
+                });
+                setItems(uniqueItems);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -37,7 +41,7 @@ function Shop() {
         <div>
             <Link to="/">Home</Link>
             <Link to="/cart">Shopping Cart</Link>
-            <p>Cart Inventory: {cartItems.length}</p> {/* Display cart inventory */}
+            <p>Cart Inventory: {cartItems.length}</p>
             <h1>The Driving Crooner</h1>
             <h2>THE SHOP</h2>
             <div>

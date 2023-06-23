@@ -5,7 +5,7 @@ function CartItem({ item }) {
         <div>
             <p>{item.name}</p>
             <p>Price: ${item.price}</p>
-            {/* Display other item details */}
+            <p>Quantity: {item.quantity}</p>
         </div>
     );
 }

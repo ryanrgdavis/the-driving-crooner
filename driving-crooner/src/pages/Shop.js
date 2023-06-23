@@ -30,7 +30,7 @@ function Shop() {
         })
             .then((response) => response.json())
             .then((data) => {
-                setCartItems([...cartItems, data]);
+                setCartItems(data.cartItems);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -49,6 +49,7 @@ function Shop() {
                     <div key={item.id}>
                         <p>{item.name}</p>
                         <p>Price: ${item.price}</p>
+                        <p>Inventory Remaining: {item.inventory}</p>
                         <button onClick={() => addToCart(item)}>Add to Cart</button>
                     </div>
                 ))}

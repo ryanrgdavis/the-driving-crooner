@@ -16,13 +16,15 @@ let cartItems = [
 
 app.use(cors());
 
+app.use(express.json());
+
 // Routes
 app.get('/cart', (req, res) => {
     res.json({ cartItems });
 });
 
 app.post('/cart', (req, res) => {
-    const newItem = req.body.item;
+    const newItem = req.body;
     cartItems.push(newItem);
     res.json({ cartItems });
 });

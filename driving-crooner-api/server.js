@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 3001;
 
@@ -13,6 +14,8 @@ let cartItems = [
     }
 ];
 
+app.use(cors());
+
 // Routes
 app.get('/cart', (req, res) => {
     res.json({ cartItems });
@@ -22,4 +25,8 @@ app.post('/cart', (req, res) => {
     const newItem = req.body.item;
     cartItems.push(newItem);
     res.json({ cartItems });
+});
+
+app.listen(port, () => {
+    console.log(`Server is listening here: http://localhost:${port}`);
 });

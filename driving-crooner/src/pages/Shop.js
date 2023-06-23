@@ -1,8 +1,20 @@
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Shop() {
     const [cartItems, setCartItems] = useState([]);
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3001/cart')
+            .then((response) => response.json())
+            .then((data) => {
+                setItems(data.cartItems);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }, []);
 
     const addToCart = (item) => {
         fetch('http://localhost:3001/cart', {
@@ -21,27 +33,22 @@ function Shop() {
             });
     };
 
-
     return (
         <div>
             <Link to="/">Home</Link>
+            <Link to="/cart">Shopping Cart</Link>
+            <p>Cart Inventory: {cartItems.length}</p> {/* Display cart inventory */}
             <h1>The Driving Crooner</h1>
             <h2>THE SHOP</h2>
             <div>
-                <div>
-                    <p>Item 1</p>
-                    <p>Price: $X</p>
-                    <button onClick={() => addToCart({ name: 'Item 1', price: 999 })}>Add to Cart</button>
-                </div>
-                <div>
-                    <p>Item 2</p>
-                    <p>Price: $X</p>
-                    <button onClick={() => addToCart({ name: 'Item 2', price: 999 })}>Add to Cart</button>
-                </div>
-                {/* Add more item entries */}
+                {items.map((item) => (
+                    <div key={item.id}>
+                        <p>{item.name}</p>
+                        <p>Price: ${item.price}</p>
+                        <button onClick={() => addToCart(item)}>Add to Cart</button>
+                    </div>
+                ))}
             </div>
-            <p>Cart Inventory: X</p>
-            <Link to="/cart">View Cart</Link>
         </div>
     );
 }

@@ -20,17 +20,39 @@ function Shop() {
             });
     }, []);
 
+    const updateItemInventory = (updatedItem) => {
+        setItems((prevItems) =>
+            prevItems.map((item) => {
+                if (item.id === updatedItem.id) {
+                    return { ...item, inventory: updatedItem.inventory };
+                }
+                return item;
+            })
+        );
+    };
+
     const addToCart = (item) => {
+        const updatedItem = { ...item, inventory: item.inventory - 1, quantity: 1 };
+
+        setItems((prevItems) =>
+            prevItems.map((prevItem) => {
+                if (prevItem.id === updatedItem.id) {
+                    return updatedItem;
+                }
+                return prevItem;
+            })
+        );
+
         fetch('http://localhost:3001/cart', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(item),
+            body: JSON.stringify(updatedItem),
         })
             .then((response) => response.json())
             .then((data) => {
-                setCartItems(data.cartItems);
+                setCartItems((prevCartItems) => [...prevCartItems, data]);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -41,7 +63,6 @@ function Shop() {
         <div>
             <Link to="/">Home</Link>
             <Link to="/cart">Shopping Cart</Link>
-            <p>Cart Inventory: {cartItems.length}</p>
             <h1>The Driving Crooner</h1>
             <h2>THE SHOP</h2>
             <div>
@@ -50,7 +71,11 @@ function Shop() {
                         <p>{item.name}</p>
                         <p>Price: ${item.price}</p>
                         <p>Inventory Remaining: {item.inventory}</p>
-                        <button onClick={() => addToCart(item)}>Add to Cart</button>
+                        <button
+                            onClick={() => addToCart(item)}
+                            disabled={item.inventory === 0}>
+                            Add to Cart
+                        </button>
                     </div>
                 ))}
             </div>

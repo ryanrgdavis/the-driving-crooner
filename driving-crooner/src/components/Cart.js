@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import CartItem from './CartItem';
 import { Link } from 'react-router-dom';
 
-function Cart({ cartItems, removeItem }) {
-    const [items, setItems] = useState([]);
+function Cart({ removeItem }) {
+    const [cartItems, setCartItems] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:3001/cart')
             .then((response) => response.json())
             .then((data) => {
-                const cartItems = data.cartItems;
-                const uniqueItems = getUniqueItems(cartItems);
-                setItems(uniqueItems);
+                const fetchedCartItems = data.cartItems;
+                const uniqueItems = getUniqueItems(fetchedCartItems);
+                setCartItems(uniqueItems);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -23,10 +23,10 @@ function Cart({ cartItems, removeItem }) {
             method: 'DELETE',
         })
             .then(() => {
-                const updatedItems = items.filter(
-                    (item, index) => item.id !== itemId || index === items.findIndex((i) => i.id === itemId)
+                const updatedItems = cartItems.filter(
+                    (item) => item.id !== itemId || cartItems.findIndex((i) => i.id === itemId) !== -1
                 );
-                setItems(updatedItems);
+                setCartItems(updatedItems);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -38,26 +38,19 @@ function Cart({ cartItems, removeItem }) {
         const itemIds = [];
 
         items.forEach((item) => {
-            if (!itemIds.includes(item.id)) {
-                const quantity = items.filter((i) => i.id === item.id).length;
-                uniqueItems.push({ ...item, quantity });
-                itemIds.push(item.id);
+            const existingItem = uniqueItems.find((uniqueItem) => uniqueItem.id === item.id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                uniqueItems.push({ ...item, quantity: 1 });
             }
+            itemIds.push(item.id);
         });
 
         return uniqueItems;
     };
 
-    const calculateQuantity = (itemId) => {
-        return items.reduce((quantity, item) => {
-            if (item.id === itemId) {
-                return quantity + 1;
-            }
-            return quantity;
-        }, 0);
-    };
-
-    const totalPrice = items.reduce((total, item) => total + item.price, 0);
+    const totalPrice = cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
 
     return (
         <div>
@@ -65,16 +58,18 @@ function Cart({ cartItems, removeItem }) {
             <Link to="/shop">The Shop</Link>
             <h1>The Driving Crooner</h1>
             <h2>Shopping Cart</h2>
-            {items
-                .filter((item) => calculateQuantity(item.id) > 0) // Filter out items with quantity 0
-                .map((item, index) => (
+            {cartItems.map((item) => {
+                const quantity = cartItems.filter((cartItem) => cartItem.id === item.id).length;
+                return (
                     <CartItem
-                        key={index}
-                        item={item} // Add quantity property
+                        key={item.id}
+                        item={item}
+                        quantity={item.quantity}
+                        // quantity={cartItems.filter((cartItem) => cartItem.id === item.id).length} // Pass quantity prop
                         removeItem={handleRemoveItem}
-                        updateQuantity={() => setItems(getUniqueItems(cartItems))}
                     />
-                ))}
+                );
+            })}
             <p>Total Price: ${totalPrice}</p>
         </div>
     );

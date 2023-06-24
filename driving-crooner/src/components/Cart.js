@@ -23,10 +23,17 @@ function Cart({ removeItem }) {
             method: 'DELETE',
         })
             .then(() => {
-                const updatedItems = cartItems.filter(
-                    (item) => item.id !== itemId || cartItems.findIndex((i) => i.id === itemId) !== -1
-                );
-                setCartItems(updatedItems);
+                // Update the items state by fetching the updated item list from the API
+                fetch('http://localhost:3001/cart')
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const fetchedCartItems = data.cartItems;
+                        const uniqueItems = getUniqueItems(fetchedCartItems);
+                        setCartItems(uniqueItems);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -35,16 +42,15 @@ function Cart({ removeItem }) {
 
     const getUniqueItems = (items) => {
         const uniqueItems = [];
-        const itemIds = [];
+        const result = [];
 
         items.forEach((item) => {
-            const existingItem = uniqueItems.find((uniqueItem) => uniqueItem.id === item.id);
-            if (existingItem) {
-                existingItem.quantity += 1;
+            if (uniqueItems[item.id]) {
+                uniqueItems[item.id].quantity += 1;
             } else {
-                uniqueItems.push({ ...item, quantity: 1 });
+                uniqueItems[item.id] = { ...item, quantity: 1 };
+                result.push(uniqueItems[item.id]);
             }
-            itemIds.push(item.id);
         });
 
         return uniqueItems;
@@ -65,7 +71,6 @@ function Cart({ removeItem }) {
                         key={item.id}
                         item={item}
                         quantity={item.quantity}
-                        // quantity={cartItems.filter((cartItem) => cartItem.id === item.id).length} // Pass quantity prop
                         removeItem={handleRemoveItem}
                     />
                 );

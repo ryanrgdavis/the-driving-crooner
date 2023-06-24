@@ -26,6 +26,30 @@ app.get('/cart', (req, res) => {
     res.json({ cartItems });
 });
 
+app.get('/cart/item/:itemId', (req, res) => {
+    const itemId = req.params.itemId;
+    const item = cartItems.find((item) => item.id === parseInt(itemId));
+
+    if (item) {
+        res.json(item);
+    } else {
+        res.status(404).json({ error: 'Item not found' });
+    }
+});
+
+app.patch('/cart/item/:itemId', (req, res) => {
+    const itemId = req.params.itemId;
+    const { inventory } = req.body;
+    const itemIndex = cartItems.findIndex((item) => item.id === parseInt(itemId));
+
+    if (itemIndex !== -1) {
+        cartItems[itemIndex].inventory = inventory;
+        res.json(cartItems[itemIndex]);
+    } else {
+        res.status(404).json({ error: 'Item not found' });
+    }
+});
+
 app.post('/cart', (req, res) => {
     const newItem = req.body;
     const existingItem = cartItems.find((item) => item.id === newItem.id);

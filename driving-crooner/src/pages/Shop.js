@@ -20,39 +20,36 @@ function Shop() {
             });
     }, []);
 
-    const updateItemInventory = (updatedItem) => {
-        setItems((prevItems) =>
-            prevItems.map((item) => {
-                if (item.id === updatedItem.id) {
-                    return { ...item, inventory: updatedItem.inventory };
-                }
-                return item;
-            })
-        );
-    };
-
     const addToCart = (item) => {
-        const updatedItem = { ...item, inventory: item.inventory - 1, quantity: 1 };
-
-        setItems((prevItems) =>
-            prevItems.map((prevItem) => {
-                if (prevItem.id === updatedItem.id) {
-                    return updatedItem;
-                }
-                return prevItem;
-            })
-        );
-
-        fetch('http://localhost:3001/cart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedItem),
-        })
+        fetch(`http://localhost:3001/cart/item/${item.id}`)
             .then((response) => response.json())
             .then((data) => {
-                setCartItems((prevCartItems) => [...prevCartItems, data]);
+                const inventory = data.inventory - 1;
+                fetch(`http://localhost:3001/cart/item/${item.id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ inventory }),
+                })
+                    .then((response) => response.json())
+                    .then(() => {
+                        fetch('http://localhost:3001/cart')
+                            .then((response) => response.json())
+                            .then((data) => {
+                                const filteredItems = data.cartItems.filter((item) => item.id === 1 || item.id === 2);
+                                const uniqueItems = Array.from(new Set(filteredItems.map((item) => item.id))).map((id) => {
+                                    return filteredItems.find((item) => item.id === id);
+                                });
+                                setItems(uniqueItems);
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error);
+                            });
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
             })
             .catch((error) => {
                 console.error('Error:', error);

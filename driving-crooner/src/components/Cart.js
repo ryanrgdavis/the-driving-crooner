@@ -47,11 +47,22 @@ function Cart({ removeItem }) {
             if (uniqueItems[item.id]) {
                 uniqueItems[item.id].quantity += 1;
             } else {
-                uniqueItems[item.id] = { ...item, quantity: item.quantity };
+                uniqueItems[item.id] = { ...item, quantity: 1 };
             }
         });
 
         return Object.values(uniqueItems).filter((item) => item.quantity > 0);
+    };
+
+    const updateCartItemQuantity = (itemId, quantity) => {
+        setCartItems((prevItems) =>
+            prevItems.map((item) => {
+                if (item.id === itemId) {
+                    return { ...item, quantity };
+                }
+                return item;
+            })
+        );
     };
 
     const totalPrice = cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
@@ -69,6 +80,7 @@ function Cart({ removeItem }) {
                         key={item.id}
                         item={item}
                         quantity={item.quantity}
+                        updateQuantity={updateCartItemQuantity}
                         removeItem={handleRemoveItem}
                     />
                 ))}

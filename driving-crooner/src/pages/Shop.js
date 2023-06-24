@@ -32,14 +32,13 @@ function Shop() {
                     },
                     body: JSON.stringify({ inventory }),
                 })
-                    .then((response) => response.json())
                     .then(() => {
                         fetch('http://localhost:3001/cart')
                             .then((response) => response.json())
                             .then((data) => {
-                                const filteredItems = data.cartItems.filter((item) => item.id === 1 || item.id === 2);
-                                const uniqueItems = Array.from(new Set(filteredItems.map((item) => item.id))).map((id) => {
-                                    return filteredItems.find((item) => item.id === id);
+                                const fetchedCartItems = data.cartItems;
+                                const uniqueItems = Array.from(new Set(fetchedCartItems.map((item) => item.id))).map((id) => {
+                                    return fetchedCartItems.find((item) => item.id === id);
                                 });
                                 setItems(uniqueItems);
                             })

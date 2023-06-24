@@ -1,11 +1,11 @@
 import React from 'react';
 
-function CartItem({ item, quantity }) {
+function CartItem({ item }) {
     return (
         <div>
             <p>{item.name}</p>
             <p>Price: ${item.price}</p>
-            <p>Quantity: {quantity}</p> {/* Use the 'quantity' prop */}
+            <p>Quantity: {item.quantity}</p>
         </div>
     );
 }

@@ -41,19 +41,17 @@ function Cart({ removeItem }) {
     };
 
     const getUniqueItems = (items) => {
-        const uniqueItems = [];
-        const result = [];
+        const uniqueItems = {};
 
         items.forEach((item) => {
             if (uniqueItems[item.id]) {
                 uniqueItems[item.id].quantity += 1;
             } else {
-                uniqueItems[item.id] = { ...item, quantity: 1 };
-                result.push(uniqueItems[item.id]);
+                uniqueItems[item.id] = { ...item, quantity: item.quantity };
             }
         });
 
-        return uniqueItems;
+        return Object.values(uniqueItems).filter((item) => item.quantity > 0);
     };
 
     const totalPrice = cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
@@ -64,17 +62,16 @@ function Cart({ removeItem }) {
             <Link to="/shop">The Shop</Link>
             <h1>The Driving Crooner</h1>
             <h2>Shopping Cart</h2>
-            {cartItems.map((item) => {
-                const quantity = cartItems.filter((cartItem) => cartItem.id === item.id).length;
-                return (
+            {cartItems
+                .filter((item) => item.quantity > 0)
+                .map((item) => (
                     <CartItem
                         key={item.id}
                         item={item}
                         quantity={item.quantity}
                         removeItem={handleRemoveItem}
                     />
-                );
-            })}
+                ))}
             <p>Total Price: ${totalPrice}</p>
         </div>
     );

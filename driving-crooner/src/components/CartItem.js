@@ -14,6 +14,7 @@ function CartItem({ item, quantity, updateQuantity, removeItem }) {
             <p>Price: ${item.price}</p>
             <p>Quantity: {quantity}</p>
             <input type="number" value={quantity} onChange={handleQuantityChange} />
+            {/* <button onClick={() => removeItem(item.id)}>Remove</button> */}
         </div>
     );
 }

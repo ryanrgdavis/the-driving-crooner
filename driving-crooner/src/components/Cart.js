@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 
 function Cart({ removeItem }) {
     const [cartItems, setCartItems] = useState([]);
-    const [selectedItems, setSelectedItems] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:3001/cart')
             .then((response) => response.json())
             .then((data) => {
-                setCartItems(data.cartItems);
-                setSelectedItems(data.cartItems.filter((item) => item.selected));
+                const fetchedCartItems = data.cartItems;
+                const uniqueItems = getUniqueItems(fetchedCartItems);
+                setCartItems(uniqueItems);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -23,13 +23,13 @@ function Cart({ removeItem }) {
             method: 'DELETE',
         })
             .then(() => {
+                // Update the items state by fetching the updated item list from the API
                 fetch('http://localhost:3001/cart')
                     .then((response) => response.json())
                     .then((data) => {
-                        setCartItems(data.cartItems);
-                        setSelectedItems((prevItems) =>
-                            prevItems.filter((item) => item.id !== itemId)
-                        );
+                        const fetchedCartItems = data.cartItems;
+                        const uniqueItems = getUniqueItems(fetchedCartItems);
+                        setCartItems(uniqueItems);
                     })
                     .catch((error) => {
                         console.error('Error:', error);
@@ -38,6 +38,20 @@ function Cart({ removeItem }) {
             .catch((error) => {
                 console.error('Error:', error);
             });
+    };
+
+    const getUniqueItems = (items) => {
+        const uniqueItems = {};
+
+        items.forEach((item) => {
+            if (uniqueItems[item.id]) {
+                uniqueItems[item.id].quantity += 1;
+            } else {
+                uniqueItems[item.id] = { ...item, quantity: 1 };
+            }
+        });
+
+        return Object.values(uniqueItems).filter((item) => item.quantity > 0);
     };
 
     const updateCartItemQuantity = (itemId, quantity) => {
@@ -53,23 +67,6 @@ function Cart({ removeItem }) {
 
     const totalPrice = cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
 
-    const updateQuantityInCart = (item) => {
-        fetch('http://localhost:3001/cart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(item),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                setCartItems([...cartItems, data]);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    };
-
     return (
         <div>
             <Link to="/">Home</Link>
@@ -77,7 +74,7 @@ function Cart({ removeItem }) {
             <h1>The Driving Crooner</h1>
             <h2>Shopping Cart</h2>
             {cartItems
-                .filter((item) => selectedItems.includes(item.id))
+                .filter((item) => item.quantity > 0)
                 .map((item) => (
                     <CartItem
                         key={item.id}

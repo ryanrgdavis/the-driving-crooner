@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react';
 function Shop() {
     const [cartItems, setCartItems] = useState([]);
     const [items, setItems] = useState([]);
-    const [selectedItem, setSelectedItem] = useState([]);
-    const [selectedItems, setSelectedItems] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:3001/cart')
@@ -23,7 +21,6 @@ function Shop() {
     }, []);
 
     const addToCart = (item) => {
-        setSelectedItem(item);
         fetch(`http://localhost:3001/cart/item/${item.id}`)
             .then((response) => response.json())
             .then((data) => {
@@ -33,7 +30,7 @@ function Shop() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ inventory, selected: true }),
+                    body: JSON.stringify({ inventory }),
                 })
                     .then(() => {
                         fetch('http://localhost:3001/cart')
@@ -44,15 +41,10 @@ function Shop() {
                                     return fetchedCartItems.find((item) => item.id === id);
                                 });
                                 setItems(uniqueItems);
-                                setCartItems(fetchedCartItems);
-                                setSelectedItems(fetchedCartItems.filter((item) => item.selected));
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
                             });
-                    })
-                    .then(() => {
-                        updateQuantityInCart(item);
                     })
                     .catch((error) => {
                         console.error('Error:', error);
@@ -62,25 +54,6 @@ function Shop() {
                 console.error('Error:', error);
             });
     };
-
-
-    const updateQuantityInCart = (item) => {
-        fetch('http://localhost:3001/cart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(item),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                setCartItems([...cartItems, data]);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    };
-
 
     return (
         <div>
@@ -94,7 +67,9 @@ function Shop() {
                         <p>{item.name}</p>
                         <p>Price: ${item.price}</p>
                         <p>Inventory Remaining: {item.inventory}</p>
-                        <button onClick={() => addToCart(item)} disabled={item.inventory === 0}>
+                        <button
+                            onClick={() => addToCart(item)}
+                            disabled={item.inventory === 0}>
                             Add to Cart
                         </button>
                     </div>

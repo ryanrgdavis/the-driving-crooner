@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
-function Shop() {
+function Shop({ cigar, setCigar, fedora, setFedora }) {
     const [cartItems, setCartItems] = useState([]);
     const [items, setItems] = useState([]);
 
@@ -21,38 +21,43 @@ function Shop() {
     }, []);
 
     const addToCart = (item) => {
-        fetch(`http://localhost:3001/cart/item/${item.id}`)
-            .then((response) => response.json())
-            .then((data) => {
-                const inventory = data.inventory - 1;
-                fetch(`http://localhost:3001/cart/item/${item.id}`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ inventory }),
-                })
-                    .then(() => {
-                        fetch('http://localhost:3001/cart')
-                            .then((response) => response.json())
-                            .then((data) => {
-                                const fetchedCartItems = data.cartItems;
-                                const uniqueItems = Array.from(new Set(fetchedCartItems.map((item) => item.id))).map((id) => {
-                                    return fetchedCartItems.find((item) => item.id === id);
-                                });
-                                setItems(uniqueItems);
-                            })
-                            .catch((error) => {
-                                console.error('Error:', error);
-                            });
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        if (item.id === 1) {
+            setCigar((prevCigar) => prevCigar + 1);
+        } else if (item.id === 2) {
+            setFedora((prevFedora) => prevFedora + 1);
+        }
+        // fetch(`http://localhost:3001/cart/item/${item.id}`)
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         const inventory = data.inventory - 1;
+        //         fetch(`http://localhost:3001/cart/item/${item.id}`, {
+        //             method: 'PATCH',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //             body: JSON.stringify({ inventory }),
+        //         })
+        //             .then(() => {
+        //                 fetch('http://localhost:3001/cart')
+        //                     .then((response) => response.json())
+        //                     .then((data) => {
+        //                         const fetchedCartItems = data.cartItems;
+        //                         const uniqueItems = Array.from(new Set(fetchedCartItems.map((item) => item.id))).map((id) => {
+        //                             return fetchedCartItems.find((item) => item.id === id);
+        //                         });
+        //                         setItems(uniqueItems);
+        //                     })
+        //                     .catch((error) => {
+        //                         console.error('Error:', error);
+        //                     });
+        //             })
+        //             .catch((error) => {
+        //                 console.error('Error:', error);
+        //             });
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error:', error);
+        //     });
     };
 
     return (

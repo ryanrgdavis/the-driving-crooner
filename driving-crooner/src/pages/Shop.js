@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import '../styles/Shop.css';
 
 function Shop({ cigar, setCigar, fedora, setFedora }) {
     const [cartItems, setCartItems] = useState([]);
@@ -26,49 +27,17 @@ function Shop({ cigar, setCigar, fedora, setFedora }) {
         } else if (item.id === 2) {
             setFedora((prevFedora) => prevFedora + 1);
         }
-        // fetch(`http://localhost:3001/cart/item/${item.id}`)
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         const inventory = data.inventory - 1;
-        //         fetch(`http://localhost:3001/cart/item/${item.id}`, {
-        //             method: 'PATCH',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //             },
-        //             body: JSON.stringify({ inventory }),
-        //         })
-        //             .then(() => {
-        //                 fetch('http://localhost:3001/cart')
-        //                     .then((response) => response.json())
-        //                     .then((data) => {
-        //                         const fetchedCartItems = data.cartItems;
-        //                         const uniqueItems = Array.from(new Set(fetchedCartItems.map((item) => item.id))).map((id) => {
-        //                             return fetchedCartItems.find((item) => item.id === id);
-        //                         });
-        //                         setItems(uniqueItems);
-        //                     })
-        //                     .catch((error) => {
-        //                         console.error('Error:', error);
-        //                     });
-        //             })
-        //             .catch((error) => {
-        //                 console.error('Error:', error);
-        //             });
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //     });
     };
 
     return (
-        <div>
+        <div className="shop-container">
             <Link to="/">Home</Link>
             <Link to="/cart">Shopping Cart</Link>
             <h1>The Driving Crooner</h1>
             <h2>THE SHOP</h2>
             <div>
                 {items.map((item) => (
-                    <div key={item.id}>
+                    <div key={item.id} className="shop-item">
                         <p>{item.name}</p>
                         <p>Price: ${item.price}</p>
                         <p>Inventory Remaining: {item.inventory}</p>

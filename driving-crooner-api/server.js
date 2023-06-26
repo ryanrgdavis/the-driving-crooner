@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 let cartItems = [
     {
@@ -64,3 +64,12 @@ app.post('/cart', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is listening here: http://localhost:${port}`);
 });
+
+if (process.env.NODE_ENV === 'production') {
+    const path = require('path')
+    app.use(express.static(path.join(__dirname, 'build')));
+
+    app.get('/*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });
+}

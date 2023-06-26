@@ -1,0 +1,21 @@
+.shop-container {
+    margin: 20px;
+}
+
+.shop-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.shop-item p {
+    margin: 5px 0;
+}
+
+.shop-item button {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}

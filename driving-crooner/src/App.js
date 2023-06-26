@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop cigar={cigar} setCigar={setCigar} fedora={fedora} setFedora={setFedora} />} />
         <Route path="/cart" element={<Cart cigar={cigar} setCigar={setCigar} fedora={fedora} setFedora={setFedora} />} />
-        <Route path="/job-application" element={<JobApplication />} />
+        <Route path="/jobapplication" element={<JobApplication />} />
       </Routes>
     </Router>
   );

@@ -3,10 +3,15 @@ import { Link } from 'react-router-dom';
 
 function JobApplication() {
     const [submitted, setSubmitted] = useState(false);
+    const [volunteer, setVolunteer] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setSubmitted(true);
+        if (submitted) {
+            setVolunteer(true);
+        } else {
+            setSubmitted(true);
+        }
     };
 
     return (
@@ -15,7 +20,11 @@ function JobApplication() {
             <h1>The Driving Crooner</h1>
             <h2>Job Application</h2>
             {submitted ? (
-                <p>Your job application has been submitted. Thank you!</p>
+                volunteer ? (
+                    <p>Your job application has been submitted as a volunteer role. Thank you!</p>
+                ) : (
+                    <p>Your job application has already been submitted. Thank you!</p>
+                )
             ) : (
                 <form onSubmit={handleSubmit}>
                     <label>

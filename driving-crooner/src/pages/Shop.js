@@ -31,8 +31,6 @@ function Shop({ cigar, setCigar, fedora, setFedora }) {
 
     return (
         <div className="shop-container">
-            <Link to="/">Home</Link>
-            <Link to="/cart">Shopping Cart</Link>
             <h1>The Driving Crooner</h1>
             <h2>THE SHOP</h2>
             <div>

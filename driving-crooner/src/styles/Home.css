@@ -1,0 +1,19 @@
+body {
+    background-color: rgb(255, 216, 84);
+}
+
+@keyframes bounceInRight {
+    0% {
+        transform: translateX(1750px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.logo {
+    animation: bounceInRight 3s;
+}

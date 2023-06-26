@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CartItem from './CartItem';
 import { Link } from 'react-router-dom';
+import '../styles/Cart.css';
 
 function Cart({ cigar, setCigar, fedora, setFedora }) {
     const [cartItems, setCartItems] = useState([]);
@@ -26,7 +27,6 @@ function Cart({ cigar, setCigar, fedora, setFedora }) {
             method: 'DELETE',
         })
             .then(() => {
-                // Update the items state by fetching the updated item list from the API
                 fetch('http://localhost:3001/cart')
                     .then((response) => response.json())
                     .then((data) => {
@@ -108,16 +108,14 @@ function Cart({ cigar, setCigar, fedora, setFedora }) {
 
             setBankBalance((prevBalance) => prevBalance - totalPrice);
             alert('Purchase successful!');
-            // You can clear the cart here if needed
         } else {
             alert('Insufficient funds. Please add more balance.');
         }
     };
 
     return (
-        <div>
-            <Link to="/">Home</Link>
-            <Link to="/shop">The Shop</Link>
+        <div className="cart-container">
+            <nav className="navbar"></nav>
             <h1>The Driving Crooner</h1>
             <h2>Shopping Cart</h2>
             {cartItems

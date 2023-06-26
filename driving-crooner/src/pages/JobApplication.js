@@ -15,8 +15,8 @@ function JobApplication() {
     };
 
     return (
-        <div>
-            <Link to="/">Home</Link>
+        <div className="job-application-container">
+            <nav className="navbar"></nav>
             <h1>The Driving Crooner</h1>
             <h2>Job Application</h2>
             {submitted ? (

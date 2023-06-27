@@ -7,7 +7,7 @@ function Shop({ cigar, setCigar, fedora, setFedora }) {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/cart')
+        fetch('/cart')
             .then((response) => response.json())
             .then((data) => {
                 const filteredItems = data.cartItems.filter((item) => item.id === 1 || item.id === 2);

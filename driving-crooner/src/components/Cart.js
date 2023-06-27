@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import CartItem from './CartItem';
 import { Link } from 'react-router-dom';
 import '../styles/Cart.css';
+import cigarImage from '../images/fedora.PNG';
+import fedoraImage from '../images/cigar.PNG';
 
 function Cart({ cigar, setCigar, fedora, setFedora }) {
     const [cartItems, setCartItems] = useState([]);
@@ -69,7 +71,7 @@ function Cart({ cigar, setCigar, fedora, setFedora }) {
         );
     };
 
-    const totalPrice = cartItems.reduce((total, item) => total + item.id === 1 ? cigar : fedora * item.price, 0);
+    const totalPrice = cartItems.reduce((total, item) => total + (item.id === 1 ? cigar : fedora) * item.price * item.quantity, 0);
 
     const handlePurchase = () => {
         if (bankBalance >= totalPrice) {
@@ -113,6 +115,15 @@ function Cart({ cigar, setCigar, fedora, setFedora }) {
         }
     };
 
+    const getItemImage = (itemId) => {
+        if (itemId === 1) {
+            return cigarImage;
+        } else if (itemId === 2) {
+            return fedoraImage;
+        }
+        return null;
+    };
+
     return (
         <div className="cart-container">
             <nav className="navbar"></nav>
@@ -126,6 +137,7 @@ function Cart({ cigar, setCigar, fedora, setFedora }) {
                     <CartItem
                         key={item.id}
                         item={item}
+                        imgSrc={getItemImage(item.id)}
                         quantity={item.id === 1 ? cigar : fedora}
                         updateQuantity={updateCartItemQuantity}
                         removeItem={handleRemoveItem}

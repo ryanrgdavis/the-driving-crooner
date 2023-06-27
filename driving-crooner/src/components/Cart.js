@@ -11,7 +11,7 @@ function Cart({ cigar, setCigar, fedora, setFedora }) {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/cart')
+        fetch('/cart')
             .then((response) => response.json())
             .then((data) => {
                 const fetchedCartItems = data.cartItems;
@@ -25,11 +25,11 @@ function Cart({ cigar, setCigar, fedora, setFedora }) {
     }, []);
 
     const handleRemoveItem = (itemId) => {
-        fetch(`http://localhost:3001/cart/${itemId}`, {
+        fetch(`/cart/${itemId}`, {
             method: 'DELETE',
         })
             .then(() => {
-                fetch('http://localhost:3001/cart')
+                fetch('/cart')
                     .then((response) => response.json())
                     .then((data) => {
                         const fetchedCartItems = data.cartItems;
@@ -78,7 +78,7 @@ function Cart({ cigar, setCigar, fedora, setFedora }) {
             // Update the inventory in the API for the purchased items
             items.forEach((item) => {
                 if (item.id === 1 && cigar > 0) {
-                    fetch(`http://localhost:3001/cart/item/${item.id}`, {
+                    fetch(`/cart/item/${item.id}`, {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ function Cart({ cigar, setCigar, fedora, setFedora }) {
                             console.error('Error:', error);
                         });
                 } else if (item.id === 2 && fedora > 0) {
-                    fetch(`http://localhost:3001/cart/item/${item.id}`, {
+                    fetch(`/cart/item/${item.id}`, {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',

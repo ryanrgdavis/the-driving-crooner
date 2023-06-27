@@ -7,8 +7,15 @@ import fedoraImage from '../images/cigar.PNG';
 
 function Cart({ cigar, setCigar, fedora, setFedora }) {
     const [cartItems, setCartItems] = useState([]);
-    const [bankBalance, setBankBalance] = useState(1000);
+    const [bankBalance, setBankBalance] = useState(() => {
+        const storedBalance = localStorage.getItem('bankBalance');
+        return storedBalance ? parseInt(storedBalance) : 1000;
+    });
     const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        localStorage.setItem('bankBalance', bankBalance);
+    }, [bankBalance]);
 
     useEffect(() => {
         fetch('/cart')

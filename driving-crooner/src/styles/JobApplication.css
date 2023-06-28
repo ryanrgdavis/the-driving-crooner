@@ -1,0 +1,39 @@
+.job-application {
+    text-align: center;
+}
+
+.job-application form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.job-application label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.job-application input {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.job-application button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.job-application button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

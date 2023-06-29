@@ -1,17 +1,16 @@
 #  thedrivingcrooner.com
 
-Welcome to The Driving Crooner website! This website allows users to explore job opportunities and submit their application to become a crooner driver. There is also a section to purchase items.
+thedrivingcrooner.com is a website based on a skit called 'The Driving Crooner' from season 3 of the TV show, 'I Think You Should Leave'.
 
 ## :computer: [Click here](https://the-driving-crooner.onrender.com) to see the live project!
 
 ## :page_facing_up: About
-
-thedrivingcrooner.com is a website based on 'The Driving Crooner' skit from the Netflix TV series 'I Think You Should Leave'. 
+The Driving Crooner website! This website allows users to explore job opportunities and submit their application to become a crooner driver. There is also a section to purchase items.
 
 ## :pencil2: Planning & Problem Solving
 
 - Flow charts of app logic:
-  ![App Logic](SOON TO BE UPDATED AFTER PRESENTATION)
+  ![App Logic](http://i.ibb.co/4Pq8fKb/IMG-2419.jpg)
 
 ## :rocket: Cool Tech
 
@@ -27,7 +26,8 @@ thedrivingcrooner.com is a website based on 'The Driving Crooner' skit from the 
 
 ## :scream: Bugs to fix
 
-- SOON TO BE UPDATED AFTER PRESENTATION
+- JobApplication page doesn't store state in localStorage when you exit page so feature will restart for user.
+- (To be extended...)
 
 ## :unamused: Lessons Learnt
 
@@ -36,7 +36,7 @@ thedrivingcrooner.com is a website based on 'The Driving Crooner' skit from the 
 
 ## :white_check_mark: Future Features
 
-- Fix CSS to look less simple
 - Store useState in localStorage in JobApplication.js file
+- Fix CSS to look less simple
 - Add option to remove an item from cart
 - Adding cart total inventory to Shop.js page

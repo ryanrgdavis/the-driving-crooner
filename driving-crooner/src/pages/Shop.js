@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import '../styles/Shop.css';
+import fedoraImage from '../images/fedora.PNG';
+import cigarImage from '../images/cigar.PNG';
 
 function Shop({ cigar, setCigar, fedora, setFedora }) {
     const [cartItems, setCartItems] = useState([]);
@@ -37,6 +39,11 @@ function Shop({ cigar, setCigar, fedora, setFedora }) {
                 {items.map((item) => (
                     <div key={item.id} className="shop-item">
                         <p>{item.name}</p>
+                        <img
+                            src={item.id === 1 ? cigarImage : fedoraImage}
+                            alt={item.name}
+                            className="item-image"
+                        />
                         <p>Price: ${item.price}</p>
                         <p>Inventory Remaining: {item.inventory}</p>
                         <button

@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+#  thedrivingcrooner.com
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to The Driving Crooner website! This website allows users to explore job opportunities and submit their application to become a crooner driver. There is also a section to purchase items.
 
-## Available Scripts
+## :computer: [Click here](https://the-driving-crooner.onrender.com) to see the live project!
 
-In the project directory, you can run:
+## :page_facing_up: About
 
-### `npm start`
+thedrivingcrooner.com is a website based on 'The Driving Crooner' skit from the Netflix TV series 'I Think You Should Leave'. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## :pencil2: Planning & Problem Solving
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Flow charts of app logic:
+  ![App Logic](SOON TO BE UPDATED AFTER PRESENTATION)
 
-### `npm test`
+## :rocket: Cool Tech
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- React
+- Javascript
+- Node API
+- render.com
+- HTML
+- CSS
+- Express
+- useState & useEffect
+- API retrieval using fetch
 
-### `npm run build`
+## :scream: Bugs to fix
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- SOON TO BE UPDATED AFTER PRESENTATION
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## :unamused: Lessons Learnt
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Persistence and determination are crucial when faced with challenges. I encountered obstacles during the development process, but by preserving and seeking solutions I was able to overcome them.
+- I realised the significance of thorough testing to identify and fix issues, ensuring a smooth and error-free user experience.
 
-### `npm run eject`
+## :white_check_mark: Future Features
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Fix CSS to look less simple
+- Store useState in localStorage in JobApplication.js file
+- Add option to remove an item from cart
+- Adding cart total inventory to Shop.js page

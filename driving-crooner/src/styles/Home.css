@@ -1,5 +1,28 @@
+.home-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(80, 60, 51);
+    border-radius: 15px;
+}
+
+.home-container h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.home-container p {
+    margin-bottom: 20px;
+}
+
+.home-about-section {
+    padding: 10px;
+    background-color: #D8CAB8;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
 body {
-    background-color: rgb(255, 216, 84);
+    background-color: #563F29;
 }
 
 @keyframes bounceInRight {
@@ -16,4 +39,11 @@ body {
 
 .logo {
     animation: bounceInRight 3s;
+}
+
+.job-poster-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }

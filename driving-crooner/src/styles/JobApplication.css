@@ -37,3 +37,43 @@
     justify-content: center;
     margin-top: 20px;
 }
+
+.centre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.centre h1 {
+    background-color: red;
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.paragraph {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 15px;
+}
+
+.centre p {
+    font-family: 'sans-serif';
+    font-weight: 700;
+    font-size: 24px;
+    color: black;
+    margin-top: 20px;
+}
+
+.job-application-button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

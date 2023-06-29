@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import '../styles/Cart.css';
 import cigarImage from '../images/fedora.PNG';
 import fedoraImage from '../images/cigar.PNG';
+import jobPosterImage from '../images/jobposter.PNG'
 
 function Cart({ cigar, setCigar, fedora, setFedora }) {
     const [cartItems, setCartItems] = useState([]);
@@ -132,29 +133,30 @@ function Cart({ cigar, setCigar, fedora, setFedora }) {
     };
 
     return (
-        <div className="cart-container">
-            <nav className="navbar"></nav>
+        <div>
             <h1>The Driving Crooner</h1>
-            <h2>Shopping Cart</h2>
-            {cartItems
-                .filter((item) => item.quantity > 0)
-                .filter((item) => item.id !== 1 || cigar > 0)
-                .filter((item) => item.id !== 2 || fedora > 0)
-                .map((item) => (
-                    <CartItem
-                        key={item.id}
-                        item={item}
-                        imgSrc={getItemImage(item.id)}
-                        quantity={item.id === 1 ? cigar : fedora}
-                        updateQuantity={updateCartItemQuantity}
-                        removeItem={handleRemoveItem}
-                    />
-                ))}
-            <p>Total Price: ${totalPrice}</p>
-            <p>Bank Balance: ${bankBalance}</p>
-            <button onClick={handlePurchase} disabled={totalPrice > bankBalance}>
-                Purchase
-            </button>
+            <div className="cart-container">
+                <h2>Shopping Cart</h2>
+                {cartItems
+                    .filter((item) => item.quantity > 0)
+                    .filter((item) => item.id !== 1 || cigar > 0)
+                    .filter((item) => item.id !== 2 || fedora > 0)
+                    .map((item) => (
+                        <CartItem
+                            key={item.id}
+                            item={item}
+                            imgSrc={getItemImage(item.id)}
+                            quantity={item.id === 1 ? cigar : fedora}
+                            updateQuantity={updateCartItemQuantity}
+                            removeItem={handleRemoveItem}
+                        />
+                    ))}
+                <p>Total Price: ${totalPrice}</p>
+                <p>Bank Balance: ${bankBalance}</p>
+                <button onClick={handlePurchase} disabled={totalPrice > bankBalance}>
+                    Purchase
+                </button>
+            </div>
         </div>
     );
 }

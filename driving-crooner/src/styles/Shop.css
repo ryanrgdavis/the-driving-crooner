@@ -22,3 +22,8 @@
     padding: 5px 10px;
     cursor: pointer;
 }
+
+.item-image {
+    height: 20px;
+    width: 20px;
+}

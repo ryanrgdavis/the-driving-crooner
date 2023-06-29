@@ -15,7 +15,7 @@ function CartItem({ item, quantity, updateQuantity, removeItem }) {
     return (
         <div>
             <p>{item.name}</p>
-            <img src={getItemImage()} alt={item.name} />
+            <img src={getItemImage()} alt={item.name} className="item-image" />
             <p>Price: ${item.price}</p>
             <p>Quantity: {quantity}</p>
             {/* <button onClick={() => removeItem(item.id)}>Remove</button> */}

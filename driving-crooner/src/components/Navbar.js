@@ -6,7 +6,9 @@ import logo from '../images/logo.PNG';
 function Navbar() {
     return (
         <nav>
-            <img src={logo} alt="Logo" className="logo" />
+            <Link to="/">
+                <img src={logo} alt="Logo" className="logo" />
+            </Link>
             <div className="links">
                 <Link to="/">Home</Link>
                 <Link to="/jobapplication">Job Application</Link>
